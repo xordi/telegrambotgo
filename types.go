@@ -6,7 +6,12 @@ type ApiResponse struct {
 
 type UpdatesResponse struct {
 	ApiResponse
-	Result []Update `json:"result"`
+	Result []*Update `json:"result"`
+}
+
+type SendMessageResponse struct {
+	ApiResponse
+	Result *Message `json:"result"`
 }
 
 type Update struct {
@@ -64,8 +69,15 @@ type PhotoSize struct {
 type SendMessageRequest struct {
 	ChatId                int64  `json:"chat_id"`
 	Text                  string `json:"text"`
-	ParseMode             string `json:"parse_mode"`
-	DisableWebPagePreview bool   `json:"disable_web_page_preview"`
-	DisableNotification   bool   `json:"disable_notification"`
-	ReplyToMessageId      int    `json:"reply_to_message_id"`
+	ParseMode             string `json:"parse_mode,omitempty"`
+	DisableWebPagePreview bool   `json:"disable_web_page_preview,omitempty"`
+	DisableNotification   bool   `json:"disable_notification,omitempty"`
+	ReplyToMessageId      int    `json:"reply_to_message_id,omitempty"`
+}
+
+// TODO Add other possible parameters
+type SendPhotoRequest struct {
+	ChatId      int64  `json:"chat_id"`
+	Photo       string `json:"photo"` // This might be a byte representation of the photo or a string containing the file id
+	IsLocalFile bool   `json:"-"`
 }
