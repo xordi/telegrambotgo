@@ -188,6 +188,96 @@ func (b *BotClient) SendAudio(request *SendAudioRequest) (*Message, error) {
 	return messageResponse.Result, nil
 }
 
+func (b *BotClient) SendDocument(request *SendDocumentRequest) (*Message, error) {
+	var messageResponse SendMessageResponse
+
+	if request.IsLocalFile {
+		// Send a multipart request with the specified field
+		parameters := make(map[string]string)
+		parameters["chat_id"] = strconv.FormatInt(request.ChatId, 10)
+
+		// Add optional parameters
+		if !isZeroValue(request.Caption) {
+			parameters["caption"] = request.Caption
+		}
+
+		if !isZeroValue(request.DisableNotification) {
+			parameters["disable_notification"] = strconv.FormatBool(request.DisableNotification)
+		}
+
+		if !isZeroValue(request.ReplyToMessageId) {
+			parameters["reply_to_message_id"] = strconv.Itoa(request.ReplyToMessageId)
+		}
+
+		err := b.executeMethodMultipart("sendDocument", request.Document, "audio", parameters, &messageResponse)
+		if err != nil {
+			log.Printf("Error processing response %v\n", err)
+			return nil, err
+		}
+
+	} else {
+		// The file is in the server, send a regular json request
+		err := b.executeMethod("sendDocument", request, &messageResponse)
+		if err != nil {
+			log.Printf("Error processing response %v\n", err)
+			return nil, err
+		}
+	}
+
+	return messageResponse.Result, nil
+}
+
+func (b *BotClient) SendVideo(request *SendVideoRequest) (*Message, error) {
+	var messageResponse SendMessageResponse
+
+	if request.IsLocalFile {
+		// Send a multipart request with the specified field
+		parameters := make(map[string]string)
+		parameters["chat_id"] = strconv.FormatInt(request.ChatId, 10)
+
+		// Add optional parameters
+		if !isZeroValue(request.Caption) {
+			parameters["caption"] = request.Caption
+		}
+
+		if !isZeroValue(request.Duration) {
+			parameters["duration"] = strconv.Itoa(request.Duration)
+		}
+
+		if !isZeroValue(request.Width) {
+			parameters["width"] = strconv.Itoa(request.Width)
+		}
+
+		if !isZeroValue(request.Height) {
+			parameters["height"] = strconv.Itoa(request.Height)
+		}
+
+		if !isZeroValue(request.DisableNotification) {
+			parameters["disable_notification"] = strconv.FormatBool(request.DisableNotification)
+		}
+
+		if !isZeroValue(request.ReplyToMessageId) {
+			parameters["reply_to_message_id"] = strconv.Itoa(request.ReplyToMessageId)
+		}
+
+		err := b.executeMethodMultipart("sendDocument", request.Video, "audio", parameters, &messageResponse)
+		if err != nil {
+			log.Printf("Error processing response %v\n", err)
+			return nil, err
+		}
+
+	} else {
+		// The file is in the server, send a regular json request
+		err := b.executeMethod("sendDocument", request, &messageResponse)
+		if err != nil {
+			log.Printf("Error processing response %v\n", err)
+			return nil, err
+		}
+	}
+
+	return messageResponse.Result, nil
+}
+
 func (b *BotClient) notifyError(err error) {
 	if err != nil && len(b.errorsChannel) < b.config.ErrorsChannelSize {
 		b.errorsChannel <- err

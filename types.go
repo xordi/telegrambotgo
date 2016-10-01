@@ -95,3 +95,24 @@ type SendAudioRequest struct {
 	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
 	IsLocalFile         bool   `json:"-"`
 }
+
+type SendDocumentRequest struct {
+	ChatId              int64  `json:"chat_id"`
+	Document            string `json:"document"` // This might be a byte representation of the photo (local path to the image) or a string containing the file id
+	Caption             string `json:"caption,omitempty"`
+	DisableNotification bool   `json:"disable_notification,omitempty"`
+	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
+	IsLocalFile         bool   `json:"-"`
+}
+
+type SendVideoRequest struct {
+	ChatId              int64  `json:"chat_id"`
+	Video               string `json:"video"` // This might be a byte representation of the photo (local path to the image) or a string containing the file id
+	Duration            int    `json:"duration,omitempty"`
+	Width               int    `json:"width"`
+	Height              int    `json:"height"`
+	Caption             string `json:"caption,omitempty"`
+	DisableNotification bool   `json:"disable_notification,omitempty"`
+	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
+	IsLocalFile         bool   `json:"-"`
+}
