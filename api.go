@@ -281,7 +281,7 @@ func (b *BotClient) executeMethodMultipart(method string, file_path string, mult
 	// Decode response
 	decoder := json.NewDecoder(resp.Body)
 
-	return decoder.Decode(result)
+	err = decoder.Decode(result)
 
 	return
 }
