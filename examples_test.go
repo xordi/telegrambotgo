@@ -33,6 +33,7 @@ func ExampleSendPhoto() {
 	request.ChatId = 4248038
 	request.IsLocalFile = true
 	request.Photo = "examples/test.jpg"
+	request.Caption = "This is a photo"
 
 	msg, err := client.SendPhoto(request)
 

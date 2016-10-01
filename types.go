@@ -75,9 +75,23 @@ type SendMessageRequest struct {
 	ReplyToMessageId      int    `json:"reply_to_message_id,omitempty"`
 }
 
-// TODO Add other possible parameters
 type SendPhotoRequest struct {
-	ChatId      int64  `json:"chat_id"`
-	Photo       string `json:"photo"` // This might be a byte representation of the photo or a string containing the file id
-	IsLocalFile bool   `json:"-"`
+	ChatId              int64  `json:"chat_id"`
+	Photo               string `json:"photo"` // This might be a byte representation of the photo (local path to the image) or a string containing the file id
+	Caption             string `json:"caption,omitempty"`
+	DisableNotification bool   `json:"disable_notification,omitempty"`
+	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
+	IsLocalFile         bool   `json:"-"`
+}
+
+type SendAudioRequest struct {
+	ChatId              int64  `json:"chat_id"`
+	Audio               string `json:"audio"` // This might be a byte representation of the photo (local path to the image) or a string containing the file id
+	Caption             string `json:"caption,omitempty"`
+	Duration            int    `json:"duration,omitempty"`
+	Performer           string `json:"performer,omitempty"`
+	Title               string `json:"title,omitempty"`
+	DisableNotification bool   `json:"disable_notification,omitempty"`
+	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
+	IsLocalFile         bool   `json:"-"`
 }
