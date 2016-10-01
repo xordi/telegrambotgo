@@ -22,3 +22,5 @@ govendor fetch https://github.com/xordi/telegrambotgo@v0.1
 - sendMessage
 - sendPhoto
 - sendAudio
+- sendDocument
+- sendVideo
