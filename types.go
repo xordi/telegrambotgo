@@ -109,8 +109,8 @@ type SendVideoRequest struct {
 	ChatId              int64  `json:"chat_id"`
 	Video               string `json:"video"` // This might be a byte representation of the photo (local path to the image) or a string containing the file id
 	Duration            int    `json:"duration,omitempty"`
-	Width               int    `json:"width"`
-	Height              int    `json:"height"`
+	Width               int    `json:"width,omitempty"`
+	Height              int    `json:"height,omitempty"`
 	Caption             string `json:"caption,omitempty"`
 	DisableNotification bool   `json:"disable_notification,omitempty"`
 	ReplyToMessageId    int    `json:"reply_to_message_id,omitempty"`
